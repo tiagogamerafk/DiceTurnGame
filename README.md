@@ -4,7 +4,7 @@
 
 ```bash
 g++ main.cpp -o game
-./game bash
+./game 
 ```
 ## Description
 This is a C++ project where you 1v1 an enemy, you either attack or defend, damage ranges from 1 to 2. Game ends when one of you reaches 0 Hp.
