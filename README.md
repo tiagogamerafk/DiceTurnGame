@@ -1,17 +1,28 @@
 # Dice Turn Game C++
 
+## How to Run
+
+```bash
+g++ main.cpp -o game
+./game bash
+```
 ## Description
-This is a C++ project where you play a game against an enemy, you either attack or defend, damage ranges from 1 to 2. Game ends when one of you reaches 0 Hp.
+This is a C++ project where you 1v1 an enemy, you either attack or defend, damage ranges from 1 to 2. Game ends when one of you reaches 0 Hp.
 
 ## Features
-- Playable Game
+- Turn-based combat
+- Attack and defend system
+- Random dice damage
+- Win / lose conditions
 
 ## Technologies
-- Text Based Gane
+- Text Based Game ( Terminal )
 
 ## What I learned
 Learned more about classes and functions in C++ and how to implement them in a useable scenario.
 
 ## Future changes
-i will make more changes like cleaning the terminal, and making UI prettier, also optimize my code.
+- Cleaning the terminal
+- Making UI prettier
+- Optimize my code.
 
