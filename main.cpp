@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <conio.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -31,11 +32,11 @@ int main(){
     int FirstChoice = 0, SecondChoice = 0;
     int DiceNumber, PlayerDamage, EnemiesDamage, EnemyChoice;
     while (FirstChoice != 3){
-    cout<< "----------------" << endl ;
-    cout<< "|  [1] Start   |" << endl ;
-    cout<< "|  [2] Credits |" << endl ;
-    cout<< "|  [3] Exit    |" << endl ;
-    cout<< "----------------" << endl ;
+    cout<< "==================" << endl;
+    cout<< "|   [1] Start    |" << endl;
+    cout<< "|   [2] Credits  |" << endl;
+    cout<< "|   [3] Exit     |" << endl;
+    cout<< "==================" << endl;
     cin >> FirstChoice;
     
         if (FirstChoice == 1){
@@ -57,6 +58,7 @@ int main(){
                 cout << "Enemies Health:" << Enemy.Hp << "\n=============" << endl;
                 cout << "Your Turn\n[1] Attack\n[2] Defend\n[-99] Quit" << endl;
                 cin >> SecondChoice;
+                cout << "\n\n\n\n\n\n\n" << endl;
                 EnemyChoice = EnemiesChoice();
                 if (SecondChoice == 1){
                     DiceNumber = RollDice();
@@ -102,8 +104,8 @@ int main(){
             getch();
 
         } else {
+            cout << "Game exited sucessfully" <<endl;
             return 0;
         }
     }
-    cout << "Game exited sucessfully" <<endl;
 }

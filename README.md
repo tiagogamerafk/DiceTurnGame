@@ -22,7 +22,7 @@ This is a C++ project where you 1v1 an enemy, you either attack or defend, damag
 Learned more about classes and functions in C++ and how to implement them in a useable scenario.
 
 ## Future changes
-- Cleaning the terminal
-- Making UI prettier
-- Optimize my code.
+- Quality of life upgrades
+- New features
+- New mechanics
 
