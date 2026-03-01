@@ -12,10 +12,6 @@ class Entity{
         int Hp = 10;
 
 };
-int RollDice();
-int Defend(int Damage);
-void EnemyAttack(bool Defended);
-int EnemiesTurn(int Damage, bool Attacked, bool Defended);
 
 Entity Player, Enemy;
 
@@ -24,43 +20,15 @@ int RollDice(){
     return Number;
 };
 
-int EnemiesTurn(int Damage, bool Attacked, bool Defended){
-     int Choice = rand() % 3 + 1;
-     if (Choice == 1){
-         if (Attacked){
-              return Defend(Damage);
-         }
-         cout << "Both Defended." << endl;
-         return 0;
-    } else {
-            EnemyAttack(Defended);
-         return Damage;
-    }
-};
-
-int Defend(int Damage){
-    if(Damage == 2) {
-        cout << "Enemy Defended but still got a hit, Damage: " << Damage << endl;
-        return Damage - 1;
-    } else {
-        cout << "Enemy Defended." << endl;
-        return 0;
-    }
-};
-
-void EnemyAttack(bool Defended){
-        if (Defended != true){
-            int Damage = RollDice();
-            cout << "Enemy Attacked, Giving you:" << Damage << " Damage"<< endl;
-            Player.Hp -= Damage;
-        }
-};
+int EnemiesChoice(){
+    int Choice = rand() % 3 + 1;
+    return Choice;
+}
 
 int main(){
     srand(time(NULL));
     int FirstChoice = 0, SecondChoice = 0;
-    int InitialAttack = 0, FinalAttack = 0;
-    bool Defended, Attacked;
+    int DiceNumber, PlayerDamage, EnemiesDamage, EnemyChoice;
     cout<< "----------------" << endl ;
     cout<< "|  [1] Start   |" << endl ;
     cout<< "|  [2] Credits |" << endl ;
@@ -69,35 +37,58 @@ int main(){
     cin >> FirstChoice;
     if (FirstChoice == 1){
         while(SecondChoice != -99){
-            Defended = false;
-            Attacked = false;
-            InitialAttack = 0;
-            FinalAttack = 0;
+            DiceNumber = 0;
+            PlayerDamage = 0;
+            EnemiesDamage = 0;
             if (Enemy.Hp <= 0) {
                 Enemy.Hp = 0;
-                cout << "You Won Congrats!!" << endl;
+                cout << "Players Health = " << Player.Hp <<"\nEnemies Health: 0 \nEnemy Died\nYou Won Congrats!!" << endl;
                 return 0;
             }
             if (Player.Hp <= 0) {
                 Player.Hp = 0;
-                cout << "You Lost, LOL" << endl;
+                cout << "Enemies Health = " << Enemy.Hp <<"\nYour Health: 0 \nEnemy Attacks and everything goes black\nYou Lost." << endl;
                 return 0;
             }
-            cout << "Your health:" << Player.Hp << endl;
-            cout << "Enemies health:" << Enemy.Hp << endl;
+            cout << "=============\nPlayers Health:" << Player.Hp << endl;
+            cout << "Enemies Health:" << Enemy.Hp << "\n=============" << endl;
             cout << "Your Turn\n[1] Attack\n[2] Defend\n[-99] Quit" << endl;
             cin >> SecondChoice;
+            EnemyChoice = EnemiesChoice();
             if (SecondChoice == 1){
-                Attacked = true;
-                InitialAttack = RollDice();
-                FinalAttack = EnemiesTurn(InitialAttack, Attacked, Defended);
-                cout << "You attacked, Giving him:" << FinalAttack << " Damage" << endl;
-                Enemy.Hp -= FinalAttack;
-                Attacked = false;
+                DiceNumber = RollDice();
+                if (EnemyChoice == 1){
+                    cout << "You chose: Attack\nEnemy Chose: Defend" << endl;
+                    PlayerDamage = DiceNumber - 1;
+                    if (PlayerDamage == 1){
+                        cout << "Enemy Defended but still took some damage." << endl;
+                        Enemy.Hp -= PlayerDamage;
+                    } else {
+                        cout << "Enemy Defended taking 0 damage." << endl;
+                    }
+                } else{
+                    EnemiesDamage = RollDice();
+                    cout << "You chose: Attack\nEnemy Chose: Attack" << endl;
+                    cout << "You attacked, Giving him: " << DiceNumber << " Damage" << endl;
+                    Enemy.Hp -= DiceNumber;
+                    cout << "He attacked you, Giving you: " << EnemiesDamage << " Damage" << endl; 
+                    Player.Hp -= EnemiesDamage;
+                }
             } if (SecondChoice == 2){
-                Defended = true;
-                EnemiesTurn(0, false, Defended);
-                Defended = false;
+                if (EnemyChoice == 1){
+                    cout << "You chose: Defend\nEnemy Chose: Defend" << endl;
+                    cout << "Both Defended." << endl;
+                } else{
+                    EnemiesDamage = RollDice();
+                    cout << "You chose: Defend\nEnemy Chose: Attack" << endl;
+                    EnemiesDamage = EnemiesDamage - 1;
+                    if (EnemiesDamage == 1){
+                        cout << "You Defended but still took some damage." << endl;
+                        Player.Hp -= EnemiesDamage;
+                    } else {
+                        cout << "You Defended taking 0 damage." << endl;
+                    }
+                }
 
             }
         }
