@@ -1,3 +1,15 @@
+/*****************************************************************************
+ *                                                                           *
+ *  File Name:        ${file_name}                                           *
+ *                                                                           *
+ *  Description:      This is a simple turn base game against an enemy       *
+ *                                                                           *
+ *  Author:           Tiago Pereira                                          *
+ *                                                                           *
+ *  Date:             ${date} ${time}                                        *
+ *                                                                           *
+ *****************************************************************************/
+
 #include <iostream>
 #include <string.h>
 #include <cstdlib>
@@ -15,35 +27,38 @@ class Entity{
 
 };
 
-Entity Player, Enemy;
-
+//used to roll a number between 2 and 1
 int RollDice(){
     int Number = rand() % 2 + 1;
     return Number;
 };
-
+//enemy choses between 3 and 1, making him defend 1/3 of the time
 int EnemiesChoice(){
     int Choice = rand() % 3 + 1;
     return Choice;
 }
 
 int main(){
+    Entity Player, Enemy;
+    
     srand(time(NULL));
     int FirstChoice = 0, SecondChoice = 0;
     int DiceNumber, PlayerDamage, EnemiesDamage, EnemyChoice;
     while (FirstChoice != 3){
-    cout<< "==================" << endl;
-    cout<< "|   [1] Start    |" << endl;
-    cout<< "|   [2] Credits  |" << endl;
-    cout<< "|   [3] Exit     |" << endl;
-    cout<< "==================" << endl;
-    cin >> FirstChoice;
+        //displays menu until 3 is pressed
+        cout<< "==================" << endl;
+        cout<< "|   [1] Start    |" << endl;
+        cout<< "|   [2] Credits  |" << endl;
+        cout<< "|   [3] Exit     |" << endl;
+        cout<< "==================" << endl;
+        cin >> FirstChoice;
     
         if (FirstChoice == 1){
             while(SecondChoice != -99){
                 DiceNumber = 0;
                 PlayerDamage = 0;
                 EnemiesDamage = 0;
+                //checks if player andenemy are still alive.
                 if (Enemy.Hp <= 0) {
                     Enemy.Hp = 0;
                     cout << "Players Health = " << Player.Hp <<"\nEnemies Health: 0 \nEnemy Died\nYou Won Congrats!!" << endl;
@@ -54,12 +69,15 @@ int main(){
                     cout << "Enemies Health = " << Enemy.Hp <<"\nYour Health: 0 \nEnemy Attacks and everything goes black\nYou Lost." << endl;
                     return 0;
                 }
+                //displays menu with info and choices
                 cout << "=============\nPlayers Health:" << Player.Hp << endl;
                 cout << "Enemies Health:" << Enemy.Hp << "\n=============" << endl;
                 cout << "Your Turn\n[1] Attack\n[2] Defend\n[-99] Quit" << endl;
                 cin >> SecondChoice;
+                //clears the window
                 cout << "\n\n\n\n\n\n\n" << endl;
                 EnemyChoice = EnemiesChoice();
+                //if user choses to attack
                 if (SecondChoice == 1){
                     DiceNumber = RollDice();
                     if (EnemyChoice == 1){
@@ -80,6 +98,7 @@ int main(){
                         Player.Hp -= EnemiesDamage;
                     }
                 } if (SecondChoice == 2){
+                    // if user choses to defend
                     if (EnemyChoice == 1){
                         cout << "You chose: Defend\nEnemy Chose: Defend" << endl;
                         cout << "Both Defended." << endl;
@@ -103,7 +122,7 @@ int main(){
             cout << "Press anything to go back to the menu" << endl;
             getch();
 
-        } else {
+        } if (FirstChoice == 3) {
             cout << "Game exited sucessfully" <<endl;
             return 0;
         }
