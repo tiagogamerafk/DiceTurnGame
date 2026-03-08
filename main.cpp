@@ -27,6 +27,23 @@ class Entity{
 
 };
 
+// checks that the input is valid
+int InputValidation(int min, int max){
+    int x;
+    // while true it gets the input and checks if its an int and its above the minimum and below the max
+    while (true){
+        if(x; cin >> x && x >= min && x <= max) {
+            return x;
+        } else if (x == -99){
+            return -99;
+        }else {
+             cout << "Please enter a valid number" << endl;
+             cin.clear();
+             cin.ignore(1000, '\n');
+        }
+    }
+}
+
 //used to roll a number between 2 and 1
 int RollDice(){
     int Number = rand() % 2 + 1;
@@ -40,7 +57,6 @@ int EnemiesChoice(){
 
 int main(){
     Entity Player, Enemy;
-    
     srand(time(NULL));
     int FirstChoice = 0, SecondChoice = 0;
     int DiceNumber, PlayerDamage, EnemiesDamage, EnemyChoice;
@@ -51,14 +67,13 @@ int main(){
         cout<< "|   [2] Credits  |" << endl;
         cout<< "|   [3] Exit     |" << endl;
         cout<< "==================" << endl;
-        cin >> FirstChoice;
-    
+        FirstChoice = InputValidation(1,3);
         if (FirstChoice == 1){
             while(SecondChoice != -99){
                 DiceNumber = 0;
                 PlayerDamage = 0;
                 EnemiesDamage = 0;
-                //checks if player andenemy are still alive.
+                //checks if player and enemy are still alive.
                 if (Enemy.Hp <= 0) {
                     Enemy.Hp = 0;
                     cout << "Players Health = " << Player.Hp <<"\nEnemies Health: 0 \nEnemy Died\nYou Won Congrats!!" << endl;
@@ -73,7 +88,10 @@ int main(){
                 cout << "=============\nPlayers Health:" << Player.Hp << endl;
                 cout << "Enemies Health:" << Enemy.Hp << "\n=============" << endl;
                 cout << "Your Turn\n[1] Attack\n[2] Defend\n[-99] Quit" << endl;
-                cin >> SecondChoice;
+                SecondChoice = InputValidation(1,2);
+                if (SecondChoice == -99){
+                    return 0;
+                }
                 //clears the window
                 cout << "\n\n\n\n\n\n\n" << endl;
                 EnemyChoice = EnemiesChoice();
